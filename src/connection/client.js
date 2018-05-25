@@ -1,8 +1,9 @@
-import Connection from './connection'
+import Connection from '../../../cocolib/connection/connection'
 
 class Client extends Connection {
     init() {
         this.socket = new WebSocket('ws://localhost:8080')
+        this.socket.onerror = (e1, e2) => console.log(e1)
         this.socket.onopen = () => this.onSocketOpen()
         this.socket.onmessage = (m) => {
             m = JSON.parse(m.data)

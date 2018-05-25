@@ -41,5 +41,9 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+
+    ReactNativeHost reactNativeHost = this.getReactNativeHost();
+    ReactInstanceManager reactInstanceManager = reactNativeHost.getReactInstanceManager();
+    ReactContext reactContext = reactInstanceManager.getCurrentReactContext();
   }
 }

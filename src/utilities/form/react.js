@@ -6,24 +6,50 @@ import {
     TextInput
 } from 'react-native';
 import React from 'react'
-import {Form} from './'
-import {Element} from "./index";
+import {Element} from '../../../../cocolib/form'
 
-class ReactElement extends React.Component {
-    state = {
-        errors: []
-    }
+export class FormText extends React.Component {
+    render() {
+        let self = this
 
-    constructor(props) {
-        super(props)
+        let props = Object.assign({style: {}}, this.props)
+
+        if(props.errorStyle) {
+            delete props.errorStyle
+        }
+
+        if(this.props.elm.errors.length > 0 && this.props.errorStyle) {
+            props.style = this.props.errorStyle
+        }
+
+        props.onChangeText = (text) => {
+            self.props.elm.setValue(text)
+        }
+
+        return React.createElement(TextInput, props, null);
     }
 }
 
-export class FormText extends ReactElement {
-    render() {
-        console.log(this.props)
+export class ReactElement extends React.Component {
+    constructor(props) {
+        super(props)
+        this.elm = props.elm
+    }
 
-        return React.createElement(TextInput, this.props, null);
+    render() {
+        switch (this.elm.constructor.name) {
+            case 'Element' :
+                let props = Object.assign({}, this.elm.props)
+                props.elm = this.elm
+
+                return React.createElement(
+                    FormText,
+                    props,
+                    null
+                )
+            default:
+                console.log("Cant find: " + this.elm.constructor.name)
+        }
     }
 }
 
@@ -31,33 +57,18 @@ export class ReactForm extends React.Component {
     constructor(props) {
         super(props)
         this.form = props.form
-        
-        this.children = []
 
-        for(let i = 0; i < this.form.elements.length; i++) {
-            let elm = this.form.elements[i]
-
-            switch (elm.constructor.name) {
-                case 'Element' :
-                    let props = elm.props
-                    props.key = i
-                    this.children.push(React.createElement(
-                        FormText,
-                        props,
-                        []
-                    ))
-
-                    break
-                default:
-                    console.log("Cant find: " + elm.constructor.name)
-            }
+        this.state = {
+            elements: this.form.elements
         }
-
-        console.log(this.children)
     }
 
     getValue() {
-        return this.form.getValue()
+        const val = this.form.getValue()
+        this.setState({elements: this.form.elements})
+        this.forceUpdate()
+        this.render()
+        return val
     }
 
     render() {
@@ -69,7 +80,9 @@ export class ReactForm extends React.Component {
 
         return (
             <View style={style}>
-                {this.children}
+                {this.form.elements.map((elm, i) => {
+                    return (<ReactElement key={i} elm={elm} />)
+                })}
             </View>
         )
     }
