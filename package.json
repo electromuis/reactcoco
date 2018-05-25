@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-react-remove-prop-types": "^0.4.10",
+    "coco-lib": "file:../cocolib",
     "electron": "^1.6.11",
     "react": "16.3.1",
     "react-dom": "16.3.2",

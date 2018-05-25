@@ -9,11 +9,9 @@ const Route = Routing.Route;
 class App extends React.Component {
     render() {
         return (
-            <AppContext.Provider>
-                <Router>
-                    <Route path='/' component={EntryScreen}/>
-                </Router>
-            </AppContext.Provider>
+            <Router>
+                <Route path='/' component={EntryScreen}/>
+            </Router>
         );
     }
 }

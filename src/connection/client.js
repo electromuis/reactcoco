@@ -1,6 +1,10 @@
-import Connection from '../../../cocolib/connection/connection'
+import MyConnection from 'coco-lib/myconnection'
 
-class Client extends Connection {
+class Client {
+    constructor(storage) {
+        this.storage = storage
+    }
+
     init() {
         this.socket = new WebSocket('ws://localhost:8080')
         this.socket.onerror = (e1, e2) => console.log(e1)

@@ -10,7 +10,7 @@ import {
     Form,
     Element,
     RequiredRule
-} from '../../../cocolib/form'
+} from 'coco-lib/form'
 import {ReactForm} from '../utilities/form/react'
 import AppContext from '../utilities/context'
 
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 20,
 
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: 'red'
     },
 
@@ -115,8 +115,20 @@ const form = new Form([
 ])
 
 export default class EntryScreen extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            loading: false
+        }
+    }
+
     onPress = () => {
         const res = this.refs.form.getValue()
+        if(this.state.loading === false && res !== false) {
+            this.setState({loading: true})
+        }
+        console.log(res)
     }
 
     render() {
@@ -126,7 +138,7 @@ export default class EntryScreen extends Component {
                     <Image source={require('../res/logo.png')} style={styles.logo} />
                 </View>
 
-                <ReactForm ref={'form'} style={styles.form} form={form}/>
+                <ReactForm ref={'form'} style={styles.form} form={form} loading={this.state.loading}/>
 
 
                 <MyButton onPress={this.onPress} title={"Sign in"} />

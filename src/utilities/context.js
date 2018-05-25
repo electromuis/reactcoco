@@ -1,9 +1,14 @@
 import React from "react";
-import {Storage} from "./storage";
+import {Storage} from "coco-lib/storage";
 import Client from "../connection/client";
 
-const storage = new Storage()
+
+let storage = new Storage()
+
+
 const client = new Client(storage)
+
+
 client.init()
 
 console.log("Initated")

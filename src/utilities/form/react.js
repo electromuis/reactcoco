@@ -1,12 +1,9 @@
 import {
-    Platform,
-    StyleSheet,
-    Text,
     View,
-    TextInput
+    TextInput,
+    ActivityIndicator
 } from 'react-native';
 import React from 'react'
-import {Element} from '../../../../cocolib/form'
 
 export class FormText extends React.Component {
     render() {
@@ -41,6 +38,7 @@ export class ReactElement extends React.Component {
             case 'Element' :
                 let props = Object.assign({}, this.elm.props)
                 props.elm = this.elm
+                props.underlineColorAndroid = 'rgba(0,0,0,0)'
 
                 return React.createElement(
                     FormText,
@@ -78,11 +76,17 @@ export class ReactForm extends React.Component {
             style = this.props.style
         }
 
+        let content = (this.state.elements.map((elm, i) => {
+            return (<ReactElement key={i} elm={elm} />)
+        }))
+
+        if(this.props.loading && this.props.loading === true) {
+            content = (<ActivityIndicator size="large" color="red" />)
+        }
+
         return (
             <View style={style}>
-                {this.form.elements.map((elm, i) => {
-                    return (<ReactElement key={i} elm={elm} />)
-                })}
+                {content}
             </View>
         )
     }
