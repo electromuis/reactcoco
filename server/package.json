@@ -1,0 +1,37 @@
+{
+  "name": "react-websocket-chat",
+  "version": "1.0.0",
+  "description": "Example chat webapp using React, Express, and WebSockets",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jskz/react-websocket-chat.git"
+  },
+  "keywords": [
+    "react",
+    "express",
+    "websockets",
+    "chat"
+  ],
+  "author": "James Skarzinskas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jskz/react-websocket-chat/issues"
+  },
+  "homepage": "https://github.com/jskz/react-websocket-chat#readme",
+  "dependencies": {
+    "coco-lib": "file:../lib",
+    "express": "^4.13.3",
+    "ws": "^0.8.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
+  }
+}
